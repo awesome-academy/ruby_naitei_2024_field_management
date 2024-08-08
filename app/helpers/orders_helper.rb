@@ -14,4 +14,23 @@ module OrdersHelper
     end
     result.unshift [t("orders.voucher_form.select_voucher"), 0]
   end
+
+  def can_delete? order
+    order.pending? || order.cancelling?
+  end
+
+  def order_status_class status
+    case status
+    when "approved"
+      "text-green-500"
+    when "pending"
+      "text-yellow"
+    when "cancelling"
+      "text-orange-500"
+    when "cancel"
+      "text-red-500"
+    else
+      "text-gray-500"
+    end
+  end
 end

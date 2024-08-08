@@ -2,24 +2,24 @@
   <div class="flex items-center gap-x-12">
     <div class="flex flex-col">
       <%= f.label :user, t(".user"), class: "mb-1 font-medium text-gray-700" %>
-      <%= f.search_field :user, class: "px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary" %>
+      <%= f.search_field :user, value: params[:user], class: "px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary" %>
     </div>
 
     <div class="flex flex-col">
       <%= f.label :field, t(".field"), class: "mb-1 font-medium text-gray-700" %>
-      <%= f.search_field :field, class: "px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary" %>
+      <%= f.search_field :field, value: params[:field], class: "px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary" %>
     </div>
 
     <div class="flex flex-col">
       <%= f.label :date, t(".date"), class: "mb-1 font-medium text-gray-700" %>
-      <%= f.date_field :date, class: "px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary" %>
+      <%= f.date_field :date, value: params[:date], class: "px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary" %>
     </div>
 
     <div class="flex flex-col">
       <%= f.label :status, t(".status"), class: "mb-1 font-medium text-gray-700" %>
       <%= f.select :status,
-                  OrderField.statuses.to_a.map {|status| [status[0].humanize, status[1]]},
-                  {include_blank: true},
+                  OrderField.statuses.keys.map {|status| [t("activerecord.attributes.order_field.status.#{status}"), OrderField.statuses[status]]},
+                  {include_blank: true, selected: params[:status]},
                   class: "pl-3 pr-8 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary cursor-pointer" %>
     </div>
     <div class="flex flex-col">

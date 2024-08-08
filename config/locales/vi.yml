@@ -367,6 +367,11 @@ vi:
         date: "Ngày"
         started_time: "Thời gian bắt đầu"
         finished_time: "Thời gian kết thúc"
+        status:
+          approved: "Chấp thuận"
+          pending: "Đang chờ"
+          cancelling: "Đang hủy"
+          cancel: "Đã hủy"
       field:
         name: "Tên sân"
         default_price: "Giá mặc định"
@@ -374,3 +379,11 @@ vi:
         close_time: "Giờ đóng cửa"
         description: "Mô tả"
         image: "Hình ảnh"
+      user:
+        activated:
+          true: "Đúng"
+          false: "Sai"
+        name: "Tên"
+        password: "Mật khẩu"
+        email: "Email"
+        password_confirmation: "Mật khẩu xác nhận"

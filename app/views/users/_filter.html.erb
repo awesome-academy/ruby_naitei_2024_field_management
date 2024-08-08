@@ -2,20 +2,20 @@
   <div class ="flex items-center gap-x-12">
     <div class="flex flex-col">
       <%= f.label :name, t("users.table.name"), class: "mb-1 font-medium text-gray-700" %>
-      <%= f.search_field :name, class: "px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary" %>
+      <%= f.search_field :name, value: params[:name], class: "px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary" %>
     </div>
 
     <div class="flex flex-col">
       <%= f.label :email, t("users.table.email"), class: "mb-1 font-medium text-gray-700" %>
-      <%= f.search_field :email, class: "px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary" %>
+      <%= f.search_field :email, value: params[:email], class: "px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary" %>
     </div>
 
     <div class="flex flex-col">
       <%= f.label :activated, t("users.table.activated"), class: "mb-1 font-medium text-gray-700" %>
       <%= f.select :activated,
                   [[t(".active"), true], [t(".inactive"), false]],
-                  { include_blank: true },
-                  class: "px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary" %>
+                  {include_blank: true, selected: params[:activated]},
+                  class: "pr-8 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary" %>
     </div>
     <div class="flex flex-col">
       <%= f.submit t(".search"), class: "w-full mt-6 px-4 py-2 text-white bg-primary rounded-md hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary cursor-pointer" %>

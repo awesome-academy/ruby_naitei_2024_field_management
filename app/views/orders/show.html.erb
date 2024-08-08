@@ -4,10 +4,10 @@
   <h1 class="text-3xl font-bold text-center"><%= t ".order" %></h1>
   <h3 class="text-2xl font-semibold text-center"><%= t ".order_id", order_id: @order.id %></h1>
   <p class="text-2xl font-medium text-center text-primary"><%= t ".field" %><%= link_to @order.field.name, @order.field %>
-  <p class="text-2xl font-medium text-center text-secondary"><%= t ".user" %><%= link_to @order.user.name, @order.user %>
-  <p class="text-2xl font-medium text-center text-red-400"><%= t ".status" %><%= @order.status %>
+  <p class="text-2xl font-medium text-center text-indigo-500"><%= t ".user" %><%= link_to @order.user.name, @order.user %>
+  <p class="text-2xl font-medium text-center <%= order_status_class(@order.status) %>"><%= t ".status" %><%= @order.status %>
   <%= render "bill" %>
-  <% unless @order.cancel? %>
+  <% if can_delete? @order %>
     <%= render "cancel_button" %>
   <% end %>
 </div>

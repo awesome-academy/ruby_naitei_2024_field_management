@@ -5,7 +5,9 @@
   <td class="px-4 py-2 buser_order-b buser_order-gray-300 text-center"><%= user_order.started_time.strftime(Settings.time_format) %></td>
   <td class="px-4 py-2 buser_order-b buser_order-gray-300 text-center"><%= user_order.finished_time.strftime(Settings.time_format) %></td>
   <td class="px-4 py-2 buser_order-b buser_order-gray-300 text-center"><%= exchange_money(user_order.final_price) %></td>
-  <td class="px-4 py-2 buser_order-b buser_order-gray-300 text-center"><%= user_order.status %></td>
+  <td class="px-4 py-2 buser_order-b buser_order-gray-300 text-center <%= order_status_class(user_order.status) %>">
+    <%= t "activerecord.attributes.order_field.status.#{user_order.status}" %>
+  </td>
   <td class="px-4 py-2 buser_order-b buser_order-gray-300 text-center"><%= user_order.created_at.strftime(Settings.date_time_format) %></td>
   <td class="px-4 py-2 buser_order-b buser_order-gray-300 text-center"><%= user_order.updated_at.strftime(Settings.date_time_format) %></td>
   <td class="px-4 py-2 buser_order-b buser_order-gray-300 text-center">

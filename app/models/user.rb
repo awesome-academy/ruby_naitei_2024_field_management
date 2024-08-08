@@ -160,7 +160,7 @@ source: :field
 
     return unless types < Settings.min_password_types
 
-    errors.add :password, I18n.t("users.create.password_complexity")
+    errors.add :base, I18n.t("users.create.password_complexity")
   end
 
   def create_activity

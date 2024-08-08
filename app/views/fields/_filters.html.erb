@@ -8,7 +8,7 @@
     <%= t ".price" %>
     <%= fa_icon "caret-down", class: "ml-2 text-gray-500" %>
   </button>
-  <div id="filter-price-list" class="flex flex-col absolute hidden shadow-lg">
+  <div id="filter-price-list" class="flex-col absolute hidden shadow-lg">
     <%= render "filter_btn", active_params: {order: :default_price, sort: :asc}, label: t(".low_to_high"), not_rounded: true %>
     <%= render "filter_btn", active_params: {order: :default_price, sort: :desc}, label: t(".high_to_low"), not_rounded: true %>
   </div>
@@ -19,7 +19,7 @@
     <%= t ".type" %>
     <%= fa_icon "caret-down", class: "ml-2 text-gray-500" %>
   </button>
-  <div id="filter-type-list" class="flex flex-col absolute hidden shadow-lg">
+  <div id="filter-type-list" class="flex-col hidden absolute shadow-lg">
     <%= render "filter_btn", active_params: {type: :all}, label: t(".all"), not_rounded: true %>
     <% all_field_types.each do |type| %>
       <%= render "filter_btn", active_params: {type: type.id}, label: type.name, not_rounded: true %>

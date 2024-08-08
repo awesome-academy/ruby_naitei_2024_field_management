@@ -369,6 +369,11 @@ en:
         date: "Date"
         started_time: "Start time"
         finished_time: "Finish time"
+        status:
+          approved: "Approved"
+          pending: "Pending"
+          cancelling: "Cancelling"
+          cancel: "Cancel"
       field:
         name: "Field name"
         default_price: "Default price"
@@ -376,3 +381,11 @@ en:
         close_time: "Close time"
         description: "Description"
         image: "Image"
+      user:
+        activated:
+          true: "True"
+          false: "False"
+        name: "Name"
+        password: "Password"
+        email: "Email"
+        password_confirmation: "Password confirmation"
