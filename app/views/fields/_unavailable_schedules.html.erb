@@ -1,17 +1,6 @@
-<% if type == "am" %>
-  <% unavailable_schedules.each do |item| %>
-    <% start_time = get_am_start_time(item.started_time) %>
-    <% end_time = get_am_end_time(item.finished_time) %>
-    <div class="outside unavailable"
-         style="--start: <%= start_time %>; --end: <%= end_time %>">
-    </div>
-  <% end %>
-<% else %>
-  <% unavailable_schedules.each do |item| %>
-    <% start_time = get_pm_start_time(item.started_time) %>
-    <% end_time = get_pm_end_time(item.finished_time) %>
-    <div class="outside unavailable"
-         style="--start: <%= start_time %>; --end: <%= end_time %>">
-    </div>
-  <% end %>
+<% unavailable_schedules.each do |item| %>
+  <div class="outside unavailable"
+         style="--start: <%= get_display_hour item.started_time, type %>;
+                --end: <%= get_display_hour item.finished_time, type %>">
+  </div>
 <% end %>

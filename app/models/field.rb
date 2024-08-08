@@ -49,7 +49,9 @@ source: :user
       .includes(image_attachment: :blob)
   end)
   scope :field_type, lambda {|field_type_id|
-                       where(field_type_id:) if field_type_id.present?
+                       if field_type_id.present? && field_type_id != "all"
+                         where(field_type_id:)
+                       end
                      }
   scope :favourite_by_current_user, ->(ids){where id: ids if ids.present?}
 

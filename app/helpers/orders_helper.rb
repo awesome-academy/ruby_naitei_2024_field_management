@@ -1,7 +1,7 @@
 module OrdersHelper
   def get_vouchers
     if current_user.vouchers.count.zero?
-      return [t("orders.voucher_form.no_voucher"), 0]
+      return [[t("orders.voucher_form.no_voucher"), 0]]
     end
 
     result = current_user.vouchers.ordered_by_type_amount.map do |voucher|

@@ -28,19 +28,19 @@ class OrdersController < ApplicationController
 
   def update
     ActiveRecord::Base.transaction do
-      @order.update_attribute(:status, order_params[:status])
-
       case order_params[:status]
       when "approved"
-        update_final_price
+        return failed_update unless handle_payment
+
         @schedule.update! status: :rent
       when "cancelling"
         @order.send_delete_order_email
         @schedule.update!(status: :pending)
       when "cancel"
-        @order.send_confirm_delete_email
+        handle_cancel
         @schedule.destroy!
       end
+      @order.update_attribute(:status, order_params[:status])
       successful_update
     end
   rescue ActiveRecord::RecordInvalid => e
@@ -95,13 +95,26 @@ class OrdersController < ApplicationController
     @orders = @orders.order(sort_column => sort_direction)
   end
 
-  def update_final_price
+  def handle_payment
     voucher = Voucher.find_by id: session[:voucher_id]
-    return unless voucher&.valid_voucher? current_user
+    final_price = @order.final_price
 
-    @order.update_attribute :final_price,
-                            voucher.calculate_discount_price(@order.final_price)
-    voucher.destroy!
-    session.delete :voucher_id
+    if voucher
+      return false unless voucher.valid_voucher?(current_user)
+
+      final_price = voucher.calculate_discount_price final_price
+      voucher.destroy!
+      session.delete :voucher_id
+    end
+
+    return false unless current_user.can_pay? final_price
+
+    @order.update_attribute :final_price, final_price
+    current_user.pay final_price
+  end
+
+  def handle_cancel
+    @order.send_confirm_delete_email
+    @order.user.charge @order.final_price
   end
 end

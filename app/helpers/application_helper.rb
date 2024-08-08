@@ -25,6 +25,10 @@ module ApplicationHelper
     end
   end
 
+  def get_profile_image user
+    user.image.attached? ? user.image : "avatar.jpg"
+  end
+
   private
 
   def sort_url column, direction
@@ -39,9 +43,5 @@ module ApplicationHelper
     icon_class += " transform rotate-180" if direction == "asc"
 
     fa_icon("sort-down", class: icon_class)
-  end
-
-  def get_profile_image user
-    user.image.attached? ? user.image : "avatar.jpg"
   end
 end

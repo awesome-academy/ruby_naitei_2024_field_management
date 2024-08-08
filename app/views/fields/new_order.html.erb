@@ -1,32 +1,34 @@
 <% provide :title, t(".booking") %>
-<h1 class="underline text-2xl font-semibold">
-  <%= t ".booking_title", deep_intepolation: true, name: @field.name %>
-</h1>
-<section class="grid grid-cols-5 mt-20">
-  <div class="relative col-span-3">
-    <%= render "explain" %>
-    <%= turbo_frame_tag "clock-container", class: "flex items-center justify-center" do %>
-      <%= render "clock",
-                  type: "am",
-                  open_close_time: @field.open_time.hour,
-                  unavailable_schedules: (@field.unavailable_field_schedules.date Date.today).am
-      %>
-      <%= render "clock",
-                  type: "pm",
-                  open_close_time: @field.close_time.strftime("%I").to_i,
-                  unavailable_schedules: (@field.unavailable_field_schedules.date Date.today).pm
-      %>
-    <% end %>
-    <div class="grid grid-cols-2 w-32 h-10 mx-auto mt-20">
-      <button id="am-btn" class="bg-gray-200 text-black rounded-md">AM</button>
-      <button id="pm-btn" class="bg-gray-200 text-black rounded-md">PM</button>
+<section class="bg-white rounded-lg p-12">
+  <h1 class="underline text-2xl font-semibold">
+    <%= t ".booking_title", deep_intepolation: true, name: @field.name %>
+  </h1>
+  <div class="grid grid-cols-5 mt-20">
+    <div class="relative col-span-3">
+      <%= render "explain" %>
+      <%= turbo_frame_tag "clock-container", class: "flex items-center justify-center" do %>
+        <%= render "clock",
+                    type: "am",
+                    open_close_time: get_display_hour(@field.open_time, "am"),
+                    unavailable_schedules: (@field.unavailable_field_schedules.date Date.today).am
+        %>
+        <%= render "clock",
+                    type: "pm",
+                    open_close_time: get_display_hour(@field.close_time, "pm"),
+                    unavailable_schedules: (@field.unavailable_field_schedules.date Date.today).pm
+        %>
+      <% end %>
+      <div class="grid grid-cols-2 w-32 h-10 mx-auto mt-20">
+        <button id="am-btn" class="bg-gray-200 text-black rounded-md">AM</button>
+        <button id="pm-btn" class="bg-gray-200 text-black rounded-md">PM</button>
+      </div>
+      <div id="choosing-time" class="text-center mt-12 hidden text-lg font-semibold text-primary">
+        <%= t ".choosing" %> <span id="start"></span> - <span id="finish"></span>
+      </div>
     </div>
-    <div id="choosing-time" class="text-center mt-12 hidden text-lg font-semibold text-primary">
-      <%= t ".choosing" %> <span id="start"></span> - <span id="finish"></span>
+    <div class="col-span-2 flex flex-col justify-center">
+      <%= render "price", price: @field.default_price %>
+      <%= render "order_form" %>
     </div>
-  </div>
-  <div class="col-span-2 flex flex-col justify-center">
-    <%= render "price", price: @field.default_price %>
-    <%= render "order_form" %>
   </div>
 </section>

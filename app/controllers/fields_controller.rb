@@ -7,16 +7,14 @@ class FieldsController < ApplicationController
   def edit; end
 
   def show
-    @pagy, @ratings = pagy @field.ratings
+    @pagy, @ratings = pagy @field.ratings.lastest
     create_action(current_user, :viewed, @field)
   end
 
   def index
-    type = params[:type] == "all" ? nil : params[:type]
-
     @pagy, @fields = pagy Field.order_by(params[:order], params[:sort])
                                .name_like(params[:search])
-                               .field_type(type)
+                               .field_type(params[:type])
                                .favourite_by_current_user(
                                  find_favourite_field_ids
                                )
@@ -123,11 +121,13 @@ class FieldsController < ApplicationController
   end
 
   def calculate_final_price
-    started_time = Time.zone.parse params.dig(:order_field, :started_time)
-    finished_time = Time.zone.parse params.dig(:order_field, :finished_time)
+    started_time = get_hour Time.zone.parse(params.dig(:order_field,
+                                                       :started_time))
+    finished_time = get_hour Time.zone.parse(params.dig(:order_field,
+                                                        :finished_time))
     return 0 if started_time.nil? || finished_time.nil?
 
-    @field.default_price * (finished_time.hour - started_time.hour)
+    @field.default_price * (finished_time - started_time)
   end
 
   def set_default_params
@@ -138,5 +138,11 @@ class FieldsController < ApplicationController
 
   def find_favourite_field_ids
     current_user&.favourite_field_ids if params[:favourite]
+  end
+
+  def get_hour time
+    return if time.nil?
+
+    time.hour + (time.min / 60.0).round(1)
   end
 end

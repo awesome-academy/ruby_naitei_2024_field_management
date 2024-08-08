@@ -10,21 +10,21 @@
       <% if current_user?(@user) %>
         <h1 class="text-xl text-emerald-400 font-semibold mb-4"><%= exchange_money(@user.money) %></h1>
         <div class="flex justify-center items-center gap-x-12">
-        <%= link_to edit_user_path(@user) do %>
-          <%= render "shared/primary_btn", label: t("users.edit.edit_profile") %>
-        <% end %>
-        <%= link_to booking_history_path do %>
-          <button class="block mx-auto bg-yellow w-40 h-14 rounded-lg text-white font-semibold text-xl hover:opacity-50 transition-opacity">
-            <%= t("booking_history.index.history") %>
-          </button>
-        <% end %>
-        <%= link_to activities_path do %>
-          <button class="block mx-auto bg-red-500 w-40 h-14 rounded-lg text-white font-semibold text-xl hover:opacity-50 transition-opacity">
-            <%= t("activities.index.activity") %>
-          </button>
-        <% end %>
+          <%= link_to edit_user_path(@user) do %>
+            <%= render "shared/primary_btn", label: t("users.edit.edit_profile") %>
+          <% end %>
+          <%= link_to booking_history_path do %>
+            <button class="block mx-auto bg-yellow w-40 h-14 rounded-lg text-white font-semibold text-xl hover:opacity-50 transition-opacity">
+              <%= t("booking_history.index.history") %>
+            </button>
+          <% end %>
+          <%= link_to activities_path do %>
+            <button class="block mx-auto bg-red-500 w-40 h-14 rounded-lg text-white font-semibold text-xl hover:opacity-50 transition-opacity">
+              <%= t("activities.index.activity") %>
+            </button>
+          <% end %>
+        </div>
       <% end %>
-      </div>
     </div>
   </div>
 </div>

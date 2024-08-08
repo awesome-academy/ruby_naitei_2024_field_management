@@ -9,6 +9,8 @@ class Rating < ApplicationRecord
   validates :description, presence: true,
                           length: {maximum: Settings.max_length_255}
 
+  scope :lastest, ->{order created_at: :desc}
+
   after_create :create_activity
   after_update :update_activity
   before_destroy :destroy_activity

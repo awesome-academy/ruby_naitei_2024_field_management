@@ -13,8 +13,12 @@
       <span class="font-light text-gray-600"><%= t ".posted", deep_intepolation: true, time: time_ago_in_words(rating.created_at) %></span>
       <span><%= render "ratings/stars", rating: rating.rating %></span>
       <p class="break-words whitespace-normal mt-1"><%= rating.description %></p>
-      <%= link_to t(".reply"), new_review_path(rating), class: "text-primary underline mt-2",
-                               data: {turbo_frame: "#{dom_id rating}-new-review"} %>
+      <% if logged_in? %>
+        <%= link_to t(".reply"), new_review_path(rating), class: "text-primary underline mt-2",
+                                 data: {turbo_frame: "#{dom_id rating}-new-review"} %>
+      <% else %>
+        <%= link_to t(".reply"), login_path, class: "text-primary underline mt-2" %>
+      <% end %>
     </div>
   </div>
   <div class="w-full pt-2 pl-8">

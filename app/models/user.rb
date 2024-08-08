@@ -133,6 +133,18 @@ source: :field
     ratings.exists? field_id: field.id
   end
 
+  def pay amount
+    update_attribute :money, (money - amount)
+  end
+
+  def charge amount
+    update_attribute :money, (money + amount)
+  end
+
+  def can_pay? amount
+    money >= amount
+  end
+
   private
 
   def downcase_email
